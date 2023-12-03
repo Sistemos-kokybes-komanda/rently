@@ -1,2 +1,2 @@
 # rently
-rently
+Rently
