@@ -7,6 +7,7 @@ CREATE TABLE `users`(
                         `phone_number` VARCHAR(255) NOT NULL,
                         `description` VARCHAR(255) NULL
 );
+
 ALTER TABLE
     `users` ADD UNIQUE `users_email_unique`(`email`);
 ALTER TABLE
@@ -40,7 +41,11 @@ CREATE TABLE `garages`(
 ALTER TABLE
     `garages` ADD UNIQUE `garages_address_unique`(`address`);
 ALTER TABLE
+    `garages` ADD INDEX `garages_owner_id_index`(`owner_id`);
+ALTER TABLE
     `reservations` ADD CONSTRAINT `reservations_user_id_foreign` FOREIGN KEY(`user_id`) REFERENCES `users`(`id`);
+ALTER TABLE
+    `garages` ADD CONSTRAINT `garages_owner_id_foreign` FOREIGN KEY(`owner_id`) REFERENCES `users`(`id`);
 ALTER TABLE
     `reservations` ADD CONSTRAINT `reservations_garage_id_foreign` FOREIGN KEY(`garage_id`) REFERENCES `garages`(`id`);
 ALTER TABLE
