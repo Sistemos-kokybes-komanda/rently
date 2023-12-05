@@ -37,4 +37,20 @@ public class UsersService {
     public void deleteUser(int id) {
         usersRepository.deleteById(id);
     }
+
+    public boolean authenticateUser(String email, String password) {
+        UsersEntity user = usersRepository.findByEmail(email);
+        return user != null && user.getPassword().equals(password);
+    }
+
+    public void registerUser(UsersEntity user) {
+        validateRegistration(user);
+        usersRepository.save(user);
+    }
+
+    private void validateRegistration(UsersEntity user) {
+        if (usersRepository.findByEmail(user.getEmail()) != null) {
+            throw new IllegalArgumentException("Email is already registered!");
+        }
+    }
 }
